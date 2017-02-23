@@ -30,4 +30,17 @@ class LanguagePack::Rails5 < LanguagePack::Rails42
   def install_plugins
     # do not install plugins, do not call super, do not warn
   end
+
+  def run_assets_precompile_rake_task
+    instrument 'rails5.run_assets_precompile_rake_task' do
+      # run `bin/yarn`
+      puts "run yarn install"
+      puts pipe './bin/yarn install'
+
+      puts "ls -l vendor/node_modules/"
+      puts pipe 'ls -l vendor/node_modules/'
+
+      super
+    end
+  end
 end
